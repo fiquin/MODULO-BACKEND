@@ -23,7 +23,7 @@ router.post('/products', async (req, res) => {
     } catch(error) {
         console.log('Algo ocurrió mienstras se creaba un producto: ', error);
         res.status(500).send({ error: error.message });
-        throw error;
+//        throw error;
     };
 });
 
@@ -49,6 +49,18 @@ router.delete('/products/:id', async (req, res) => {
         res.status(500).send({ error: error.message });
         throw error;
     };    
+});
+
+router.get('/products/:id', async (req, res) => {
+    try {
+        const products = await Product.findById({ _id: req.params.id});
+
+        return res.send(products);
+    } catch(error) {
+        console.log('Algo ocurrió al obtener la información: ', error);
+        res.status(500).send({ error: error.message });
+        throw error;
+    };
 });
 
 module.exports = router;
